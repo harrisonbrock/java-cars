@@ -38,4 +38,8 @@ public class CarServiceImpl implements CarService {
         return repository.findByBrand(brand);
     }
 
+    @Override
+    public List<Car> upLoadData(List<Car> cars) {
+        return repository.saveAll(cars);
+    }
 }

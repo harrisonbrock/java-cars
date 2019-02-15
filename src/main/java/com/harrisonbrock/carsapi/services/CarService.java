@@ -10,4 +10,5 @@ public interface CarService {
     Optional<Car> findById(Long id);
     List<Car> findByYear(int year);
     List<Car> findByBrand(String brand);
+    List<Car> upLoadData(List<Car> cars);
 }
