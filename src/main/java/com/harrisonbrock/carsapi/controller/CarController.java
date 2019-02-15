@@ -35,6 +35,11 @@ public class CarController {
         return carService.findByYear(year);
     }
 
+    @GetMapping("/cars/brand/{brand}")
+    public List<Car> getCarById(@PathVariable String brand) {
+        return carService.findByBrand(brand, rabbitTemplate);
+    }
+
     @PostMapping("/cars/upload")
     public List<Car> upLoadData(@RequestBody List<Car> cars) {
         return carService.upLoadData(cars, rabbitTemplate);

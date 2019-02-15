@@ -38,13 +38,15 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> findByBrand(String brand) {
+    public List<Car> findByBrand(String brand, RabbitTemplate rabbitTemplate) {
+        CarMessage message = new CarMessage("User Search For Brand: " + brand);
+        rabbitTemplate.convertAndSend(CarsApiApplication.QUEUE_CARS, message.toString());
         return repository.findByBrand(brand);
     }
 
     @Override
     public List<Car> upLoadData(List<Car> cars, RabbitTemplate rabbitTemplate) {
-        CarMessage message = new CarMessage("");
+        CarMessage message = new CarMessage("Load Car Data");
         rabbitTemplate.convertAndSend(CarsApiApplication.QUEUE_CARS, message.toString());
         return repository.saveAll(cars);
     }
