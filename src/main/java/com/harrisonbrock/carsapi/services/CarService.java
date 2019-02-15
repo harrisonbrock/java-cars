@@ -1,6 +1,7 @@
 package com.harrisonbrock.carsapi.services;
 
 import com.harrisonbrock.carsapi.domain.Car;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,5 +11,5 @@ public interface CarService {
     Optional<Car> findById(Long id);
     List<Car> findByYear(int year);
     List<Car> findByBrand(String brand);
-    List<Car> upLoadData(List<Car> cars);
+    List<Car> upLoadData(List<Car> cars, RabbitTemplate rabbitTemplate);
 }

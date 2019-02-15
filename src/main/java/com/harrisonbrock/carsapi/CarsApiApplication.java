@@ -43,7 +43,7 @@ public class CarsApiApplication {
 
     @Bean
     public RabbitTemplate rt(final ConnectionFactory cf) {
-        final RabbitTemplate rt = new RabbitTemplate();
+        final RabbitTemplate rt = new RabbitTemplate(cf);
         rt.setMessageConverter(producerJackson2MessageConverter());
         return rt;
     }
