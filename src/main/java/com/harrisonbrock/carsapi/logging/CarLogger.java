@@ -12,6 +12,7 @@ public class CarLogger {
 
     @RabbitListener(queues = CarsApiApplication.QUEUE_CARS)
     public void consumeMessage(final Message message) {
+
         log.info("Received Message: {}", message.toString());
     }
 }

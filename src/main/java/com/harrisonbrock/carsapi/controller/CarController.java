@@ -6,27 +6,26 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CarController {
 
     private final CarService carService;
-    private final RabbitTemplate rabbitTemplate;
 
-    public CarController(CarService carService, RabbitTemplate rabbitTemplate) {
+    public CarController(CarService carService) {
         this.carService = carService;
-        this.rabbitTemplate = rabbitTemplate;
     }
 
 
     @GetMapping("/cars")
     public List<Car> getAllCars() {
+
         return carService.findAll();
     }
 
     @GetMapping("/cars/id/{id}")
-    public Optional<Car> getCarById(@PathVariable long id) {
+    public Car getCarById(@PathVariable long id) {
+
         return carService.findById(id);
     }
 
@@ -37,16 +36,18 @@ public class CarController {
 
     @GetMapping("/cars/brand/{brand}")
     public List<Car> getCarByBrand(@PathVariable String brand) {
-        return carService.findByBrand(brand, rabbitTemplate);
+
+        return carService.findByBrand(brand);
     }
 
     @PostMapping("/cars/upload")
     public List<Car> upLoadData(@RequestBody List<Car> cars) {
-        return carService.upLoadData(cars, rabbitTemplate);
+
+        return carService.upLoadData(cars);
     }
 
     @DeleteMapping("/cars/delete/{id}")
     public void deleteById(@PathVariable Long id) {
-        carService.deleteById(id, rabbitTemplate);
+        carService.deleteById(id);
     }
 }
