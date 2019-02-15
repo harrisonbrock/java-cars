@@ -50,4 +50,11 @@ public class CarServiceImpl implements CarService {
         rabbitTemplate.convertAndSend(CarsApiApplication.QUEUE_CARS, message.toString());
         return repository.saveAll(cars);
     }
+
+    @Override
+    public void deleteById(Long id, RabbitTemplate rabbitTemplate) {
+        repository.deleteById(id);
+        CarMessage message = new CarMessage(id + " Data Deleted");
+        rabbitTemplate.convertAndSend(CarsApiApplication.QUEUE_CARS, message.toString());
+    }
 }

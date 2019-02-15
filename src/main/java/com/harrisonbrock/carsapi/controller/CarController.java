@@ -31,17 +31,22 @@ public class CarController {
     }
 
     @GetMapping("/cars/year/{year}")
-    public List<Car> getCarById(@PathVariable int year) {
+    public List<Car> getCarByYear(@PathVariable int year) {
         return carService.findByYear(year);
     }
 
     @GetMapping("/cars/brand/{brand}")
-    public List<Car> getCarById(@PathVariable String brand) {
+    public List<Car> getCarByBrand(@PathVariable String brand) {
         return carService.findByBrand(brand, rabbitTemplate);
     }
 
     @PostMapping("/cars/upload")
     public List<Car> upLoadData(@RequestBody List<Car> cars) {
         return carService.upLoadData(cars, rabbitTemplate);
+    }
+
+    @DeleteMapping("/cars/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
+        carService.deleteById(id, rabbitTemplate);
     }
 }
