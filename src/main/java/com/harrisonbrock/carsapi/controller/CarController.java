@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class CarController {
@@ -22,6 +23,16 @@ public class CarController {
     @GetMapping("/cars")
     public List<Car> getAllCars() {
         return carService.findAll();
+    }
+
+    @GetMapping("/cars/id/{id}")
+    public Optional<Car> getCarById(@PathVariable long id) {
+        return carService.findById(id);
+    }
+
+    @GetMapping("/cars/year/{year}")
+    public List<Car> getCarById(@PathVariable int year) {
+        return carService.findByYear(year);
     }
 
     @PostMapping("/cars/upload")
