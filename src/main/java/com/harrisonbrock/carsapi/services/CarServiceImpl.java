@@ -41,7 +41,7 @@ public class CarServiceImpl implements CarService {
     public List<Car> findByBrand(String brand, RabbitTemplate rabbitTemplate) {
         CarMessage message = new CarMessage("User Search For Brand: " + brand);
         rabbitTemplate.convertAndSend(CarsApiApplication.QUEUE_CARS, message.toString());
-        return repository.findByBrand(brand);
+        return repository.findByBrandIgnoreCase(brand);
     }
 
     @Override
